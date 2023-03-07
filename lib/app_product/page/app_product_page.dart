@@ -15,7 +15,7 @@ class AppProductPage extends StatelessWidget {
   final userName = TextEditingController();
   final address = TextEditingController();
   final price = TextEditingController();
-  final List<XFile> images = [];
+  List<XFile> images = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,10 @@ class AppProductPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ImageContainer(
+              onPicked: (value) => images = value,
+              onDelete: (xfile) {
+                images.remove(xfile);
+              },
               images: images,
             ),
             const SizedBox(height: 20),
