@@ -1,20 +1,24 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:jarnama/components/custom_text_field.dart';
+import 'package:jarnama/components/image_container.dart';
+import 'package:jarnama/services/date_time_service.dart';
 
 class AppProductPage extends StatelessWidget {
-  const AppProductPage({Key? key}) : super(key: key);
+  AppProductPage({Key? key}) : super(key: key);
+
+  final title = TextEditingController();
+  final desc = TextEditingController();
+  final dateTime = TextEditingController();
+  final phoneNumber = TextEditingController();
+  final userName = TextEditingController();
+  final address = TextEditingController();
+  final price = TextEditingController();
+  List<XFile> images = [];
 
   @override
   Widget build(BuildContext context) {
-    final title = TextEditingController();
-    final desc = TextEditingController();
-    final dateTime = TextEditingController();
-    final phoneNumber = TextEditingController();
-    final userName = TextEditingController();
-    final address = TextEditingController();
-    final price = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('AppProductPage'),
@@ -33,29 +37,22 @@ class AppProductPage extends StatelessWidget {
               hintText: 'Description',
             ),
             const SizedBox(height: 20),
+            ImageContainer(
+              onPicked: (value) => images = value,
+              onDelete: (xfile) {
+                images.remove(xfile);
+              },
+              images: images,
+            ),
+            const SizedBox(height: 20),
             CustomTextField(
               controller: dateTime,
               hintText: 'Datetime',
               focusNode: FocusNode(),
               onTap: () async {
-                showCupertinoModalPopup(
-                    context: context,
-                    builder: (BuildContext builder) {
-                      return Container(
-                        height: MediaQuery.of(context).copyWith().size.height *
-                            0.25,
-                        color: Colors.white,
-                        child: CupertinoDatePicker(
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (value) {
-                            dateTime.text = value.toString();
-                          },
-                          initialDateTime: DateTime.now(),
-                          minimumYear: 2000,
-                          maximumYear: 3000,
-                        ),
-                      );
-                    });
+                await DateTimeService.showDateTime(context, (value) {
+                  dateTime.text = DateFormat("d MMM, y").format(value);
+                });
               },
             ),
             const SizedBox(height: 20),
