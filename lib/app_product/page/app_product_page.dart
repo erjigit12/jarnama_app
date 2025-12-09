@@ -90,8 +90,9 @@ class _AppProductPageState extends State<AppProductPage> {
             ),
             const SizedBox(height: 20),
             CustomTextField(
+              suffixIcon: const Icon(Icons.money),
               controller: price,
-              hintText: 'Цена',
+              hintText: 'Цена в сомах',
             ),
             const SizedBox(height: 40),
             ElevatedButton.icon(

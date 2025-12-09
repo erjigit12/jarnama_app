@@ -55,7 +55,7 @@ class ProductDetailPage extends StatelessWidget {
               ),
               if (product.price != null && product.price!.isNotEmpty)
                 Text(
-                  product.price!,
+                  '${product.price!} сом',
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,

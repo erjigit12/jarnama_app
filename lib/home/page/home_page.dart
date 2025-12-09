@@ -123,16 +123,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ],
                                 ),
+                            ),
+                            Text(
+                              products.price != null && products.price!.isNotEmpty
+                                  ? '${products.price} сом'
+                                  : '',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
                               ),
-                              Text(
-                                products.price ?? '',
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
                           const SizedBox(height: 8),
                           Text(
                             products.description,
