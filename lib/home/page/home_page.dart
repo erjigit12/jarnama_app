@@ -2,8 +2,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jarnama/app_product/app_product.dart';
+import 'package:jarnama/auth/bloc/auth_bloc.dart';
 import 'package:jarnama/model/product_model.dart';
+import 'package:jarnama/home/page/product_detail_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -24,6 +27,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Jarnama'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(AuthSignOutRequested());
+            },
+            icon: const Icon(Icons.logout),
+            tooltip: 'Выйти',
+          ),
+        ],
       ),
       body: StreamBuilder(
         stream: readTodos(),
@@ -41,47 +53,97 @@ class _MyHomePageState extends State<MyHomePage> {
                 .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
                 .toList();
             return ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 12),
               itemCount: todos.length,
               itemBuilder: (context, index) {
                 final products = todos[index];
 
-                return Card(
-                  color: const Color.fromARGB(255, 167, 164, 164),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 5),
-                      products.images != null
-                          ? SizedBox(
-                              height: 200,
-                              child: PageView.builder(
-                                itemCount: products.images!.length,
-                                itemBuilder: (context, index) {
-                                  final images = products.images![index];
-                                  return Image.network(images);
-                                },
+                return InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProductDetailPage(product: products),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    color: Colors.grey.shade100,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (products.images != null && products.images!.isNotEmpty)
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: PageView.builder(
+                                  itemCount: products.images!.length,
+                                  itemBuilder: (context, index) {
+                                    final images = products.images![index];
+                                    return Image.network(
+                                      images,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                    );
+                                  },
+                                ),
                               ),
-                            )
-                          : const SizedBox(),
-                      const SizedBox(height: 20),
-                      ListTile(
-                        title: Text(
-                          products.userName,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        leading: Text(
-                          products.title,
-                          style: const TextStyle(fontSize: 24),
-                        ),
-                        subtitle: Text(
-                          products.description,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        trailing: Text(
-                          products.price ?? '',
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      )
-                    ],
+                            ),
+                          const SizedBox(height: 12),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      products.title,
+                                      style: const TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      products.userName,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                products.price ?? '',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            products.description,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
