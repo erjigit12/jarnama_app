@@ -1,4 +1,5 @@
-//ignore: must_be_immutable
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jarnama/components/image_card.dart';
@@ -11,6 +12,7 @@ class ImageContainer extends StatefulWidget {
     required this.onPicked,
     required this.onDelete,
   });
+
   List<XFile> images;
   final void Function(List<XFile>)? onPicked;
   final void Function(XFile) onDelete;
@@ -38,8 +40,7 @@ class _ImageContainerState extends State<ImageContainer> {
                 child: Stack(
                   children: [
                     GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                       ),
                       itemCount: widget.images.length,

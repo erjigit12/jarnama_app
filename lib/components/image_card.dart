@@ -6,10 +6,10 @@ import 'package:image_picker/image_picker.dart';
 
 class ImageCard extends StatelessWidget {
   const ImageCard({
-    Key? key,
+    super.key,
     required this.file,
     required this.delete,
-  }) : super(key: key);
+  });
 
   final XFile file;
   final void Function(XFile) delete;

@@ -6,7 +6,7 @@ import 'package:jarnama/app_product/app_product.dart';
 import 'package:jarnama/model/product_model.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MyHomePage'),
+        title: const Text('Jarnama'),
       ),
       body: StreamBuilder(
         stream: readTodos(),
@@ -38,8 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           } else if (snapshot.hasData) {
             final List<Product> todos = snapshot.data!.docs
-                .map((doc) =>
-                    Product.fromJson(doc.data() as Map<String, dynamic>))
+                .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
                 .toList();
             return ListView.builder(
               itemCount: todos.length,

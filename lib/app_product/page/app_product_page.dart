@@ -12,7 +12,7 @@ import 'package:jarnama/services/loading_servce.dart';
 import 'package:jarnama/services/store_service.dart';
 
 class AppProductPage extends StatefulWidget {
-  const AppProductPage({Key? key}) : super(key: key);
+  const AppProductPage({super.key});
 
   @override
   State<AppProductPage> createState() => _AppProductPageState();
