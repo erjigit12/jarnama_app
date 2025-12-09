@@ -39,7 +39,7 @@ class _AppProductPageState extends State<AppProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AppProductPage'),
+        title: const Text('Добавить продукт'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -47,12 +47,12 @@ class _AppProductPageState extends State<AppProductPage> {
           children: [
             CustomTextField(
               controller: title,
-              hintText: 'Title',
+              hintText: 'Что вы публикуете?',
             ),
             const SizedBox(height: 20),
             CustomTextField(
               controller: desc,
-              hintText: 'Description',
+              hintText: 'Описание',
             ),
             const SizedBox(height: 20),
             ImageContainer(
@@ -65,7 +65,7 @@ class _AppProductPageState extends State<AppProductPage> {
             const SizedBox(height: 20),
             CustomTextField(
               controller: dateTime,
-              hintText: 'Datetime',
+              hintText: 'Дата и время',
               focusNode: FocusNode(),
               onTap: () async {
                 await DateTimeService.showDateTime(context, (value) {
@@ -76,22 +76,22 @@ class _AppProductPageState extends State<AppProductPage> {
             const SizedBox(height: 20),
             CustomTextField(
               controller: phoneNumber,
-              hintText: 'PhoneNumber',
+              hintText: 'Номер телефона',
             ),
             const SizedBox(height: 20),
             CustomTextField(
               controller: userName,
-              hintText: 'UserName',
+              hintText: 'Имя пользователя',
             ),
             const SizedBox(height: 20),
             CustomTextField(
               controller: address,
-              hintText: 'Address',
+              hintText: 'Адрес',
             ),
             const SizedBox(height: 20),
             CustomTextField(
               controller: price,
-              hintText: 'Price',
+              hintText: 'Цена',
             ),
             const SizedBox(height: 40),
             ElevatedButton.icon(
@@ -113,7 +113,7 @@ class _AppProductPageState extends State<AppProductPage> {
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
               icon: const Icon(Icons.add),
-              label: const Text('Add to Firebase'),
+              label: const Text('Опубликовать'),
             ),
           ],
         ),
