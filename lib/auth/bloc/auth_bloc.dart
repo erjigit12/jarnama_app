@@ -86,8 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(
         state.copyWith(
           isLoading: false,
-          errorMessage:
-              '${e.code}: ${e.message ?? 'Не удалось зарегистрироваться'}',
+          errorMessage: '${e.code}: ${e.message ?? 'Не удалось зарегистрироваться'}',
         ),
       );
       return;

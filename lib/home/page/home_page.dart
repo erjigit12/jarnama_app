@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jarnama/add_product/app_product.dart';
+import 'package:jarnama/add_product/add_product.dart';
 import 'package:jarnama/auth/bloc/auth_bloc.dart';
 import 'package:jarnama/model/product_model.dart';
 import 'package:jarnama/home/page/product_detail_page.dart';
@@ -16,10 +16,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final db = FirebaseFirestore.instance;
+  late final FirebaseFirestore _db;
+
+  @override
+  void initState() {
+    super.initState();
+    _db = context.read<FirebaseFirestore>();
+  }
 
   Stream<QuerySnapshot> readTodos() {
-    return db.collection('products').snapshots();
+    return _db.collection('products').snapshots();
   }
 
   @override
@@ -53,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
                 .toList();
             return ListView.builder(
-              key: const Key('ads_list'),
               padding: const EdgeInsets.symmetric(vertical: 12),
               itemCount: todos.length,
               itemBuilder: (context, index) {
@@ -157,11 +162,10 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        key: const Key('add_product_button'),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return const AppProductPage();
+              return AppProductPage();
             },
           ));
         },

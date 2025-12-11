@@ -46,6 +46,9 @@ post_install do |installer|
 
       # Prefer Apple Silicon simulator builds (avoid x86_64 toolchain flags like -G).
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'x86_64'
+
+      # Устанавливаем минимальную версию iOS для всех pods, чтобы не падать на 11.0/12.0.
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
     end
   end
 end

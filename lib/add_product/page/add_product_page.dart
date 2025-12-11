@@ -46,13 +46,11 @@ class _AppProductPageState extends State<AppProductPage> {
         child: ListView(
           children: [
             CustomTextField(
-              key: const Key('add_title'),
               controller: title,
               hintText: 'Что вы публикуете?',
             ),
             const SizedBox(height: 20),
             CustomTextField(
-              key: const Key('add_description'),
               controller: desc,
               hintText: 'Описание',
             ),
@@ -66,7 +64,6 @@ class _AppProductPageState extends State<AppProductPage> {
             ),
             const SizedBox(height: 20),
             CustomTextField(
-              key: const Key('add_date_time'),
               controller: dateTime,
               hintText: 'Дата и время',
               focusNode: FocusNode(),
@@ -78,32 +75,27 @@ class _AppProductPageState extends State<AppProductPage> {
             ),
             const SizedBox(height: 20),
             CustomTextField(
-              key: const Key('add_phone_number'),
               controller: phoneNumber,
               hintText: 'Номер телефона',
             ),
             const SizedBox(height: 20),
             CustomTextField(
-              key: const Key('add_user_name'),
               controller: userName,
               hintText: 'Имя пользователя',
             ),
             const SizedBox(height: 20),
             CustomTextField(
-              key: const Key('add_address'),
               controller: address,
               hintText: 'Адрес',
             ),
             const SizedBox(height: 20),
             CustomTextField(
-              key: const Key('add_price'),
               suffixIcon: const Icon(Icons.money),
               controller: price,
               hintText: 'Цена в сомах',
             ),
             const SizedBox(height: 40),
             ElevatedButton.icon(
-              key: const Key('publish_button'),
               onPressed: () async {
                 LoadingService().showLoading(context);
                 final urls = await ImageStorage().uploadImage(images);
