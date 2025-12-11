@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jarnama/app_product/app_product.dart';
+import 'package:jarnama/add_product/app_product.dart';
 import 'package:jarnama/auth/bloc/auth_bloc.dart';
 import 'package:jarnama/model/product_model.dart';
 import 'package:jarnama/home/page/product_detail_page.dart';
@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 .map((doc) => Product.fromJson(doc.data() as Map<String, dynamic>))
                 .toList();
             return ListView.builder(
+              key: const Key('ads_list'),
               padding: const EdgeInsets.symmetric(vertical: 12),
               itemCount: todos.length,
               itemBuilder: (context, index) {
@@ -123,18 +124,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ],
                                 ),
-                            ),
-                            Text(
-                              products.price != null && products.price!.isNotEmpty
-                                  ? '${products.price} сом'
-                                  : '',
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
                               ),
-                            ),
-                          ],
-                        ),
+                              Text(
+                                products.price != null && products.price!.isNotEmpty
+                                    ? '${products.price} сом'
+                                    : '',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
                           const SizedBox(height: 8),
                           Text(
                             products.description,
@@ -156,6 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        key: const Key('add_product_button'),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {

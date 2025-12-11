@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jarnama/auth/bloc/auth_bloc.dart';
@@ -89,6 +91,7 @@ class _AuthPageState extends State<AuthPage> {
                             child: Column(
                               children: [
                                 TextFormField(
+                                  key: const Key('login_email'),
                                   controller: _emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
@@ -107,6 +110,7 @@ class _AuthPageState extends State<AuthPage> {
                                 ),
                                 const SizedBox(height: 12),
                                 TextFormField(
+                                  key: const Key('login_password'),
                                   controller: _passwordController,
                                   obscureText: true,
                                   decoration: const InputDecoration(
@@ -123,6 +127,7 @@ class _AuthPageState extends State<AuthPage> {
                                 if (!_isLogin) ...[
                                   const SizedBox(height: 12),
                                   TextFormField(
+                                    key: const Key('signup_confirm_password'),
                                     controller: _confirmController,
                                     obscureText: true,
                                     decoration: const InputDecoration(
@@ -138,6 +143,7 @@ class _AuthPageState extends State<AuthPage> {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
+                              key: const Key('login_button'),
                               onPressed: isLoading ? null : _submit,
                               child: Text(_isLogin ? 'Войти' : 'Зарегистрироваться'),
                             ),
